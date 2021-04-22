@@ -21,6 +21,8 @@ import {
 } from 'lisk-sdk';
 import { LegacyAccountModule } from './modules';
 
+import { HealthPlugin } from 'lisk-plugin-health';
+
 export interface Options {
 	enableHTTPAPIPlugin: boolean;
 	enableForgerPlugin: boolean;
@@ -50,6 +52,8 @@ export const getApplication = (
 	if (options.enableReportMisbehaviorPlugin) {
 		app.registerPlugin(ReportMisbehaviorPlugin, { loadAsChildProcess: true });
 	}
+
+	app.registerPlugin(HealthPlugin);
 
 	return app;
 };

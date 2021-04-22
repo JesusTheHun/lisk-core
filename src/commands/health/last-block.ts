@@ -20,14 +20,12 @@ export default class HealthLastBlockCommand extends BaseIPCCommand {
 
 	static examples = [
 		'health:last-block',
-		'health:last-block -d',
 		'health:last-block --diff'
 	];
 
 	static flags = {
 		...BaseIPCCommand.flags,
-		diff: flagParser.string({
-			char: 'd',
+		diff: flagParser.boolean({
 			description:
 				'Return the difference between last received block time and now',
 		}),
@@ -48,7 +46,7 @@ export default class HealthLastBlockCommand extends BaseIPCCommand {
 			}
 
 			if (flags.diff) {
-				const diff = lastBlockReceivedAt - Date.now();
+				const diff = Date.now() - lastBlockReceivedAt;
 				this.log(diff.toString());
 			} else {
 				this.log(lastBlockReceivedAt.toString())

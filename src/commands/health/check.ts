@@ -15,7 +15,7 @@
 import BaseIPCCommand from '../../base_ipc';
 import {flags as flagParser} from "@oclif/command";
 
-export default class HealthCommand extends BaseIPCCommand {
+export default class HealthCheckCommand extends BaseIPCCommand {
 	static description = 'Get health information from a running application.';
 
 	static examples = [
@@ -37,12 +37,18 @@ export default class HealthCommand extends BaseIPCCommand {
 			this.error('APIClient is not initialized.');
 		}
 		try {
-			const { flags } = this.parse(HealthCommand);
+			const { flags } = this.parse(HealthCheckCommand);
 
-			const nodeInfo = await this._client.invoke('health:check', {
+			const isHealthy = await this._client.invoke('health:isHealthy', {
 				delayUntilUnhealthy: flags.delay
 			});
-			this.printJSON(nodeInfo);
+
+			if (isHealthy) {
+				this.log("healthy");
+			} else {
+				this.error("unhealthy")
+			}
+
 		} catch (errors) {
 			const errorMessage = Array.isArray(errors)
 				? errors.map(err => (err as Error).message).join(',')

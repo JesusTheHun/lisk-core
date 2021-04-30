@@ -37,10 +37,8 @@
 		"test:stress": "npx ts-node test/scripts/stress_test.ts",
 		"version": "oclif-dev readme --multi --dir=docs/commands && git add README.md docs",
 		"prepublishOnly": "npm ci && npm run lint && npm run build",
-		"docker-build": "docker build . -t jesusthehun/lisk-core",
-		"docker-build-k8s": "docker build -t jesusthehun/lisk-core -f from-source.Dockerfile .",
-		"docker-build-k8s-scratch": "docker build --no-cache --force-rm --pull -t jesusthehun/lisk-core -f from-source.Dockerfile .",
-		"minikube-build": "eval $(minikube -p minikube docker-env) && docker build . -t jesusthehun/lisk-core"
+		"docker-build-k8s": "docker build -t jesusthehun/lisk-core -f docker/from-source.Dockerfile .",
+		"docker-build-k8s-scratch": "docker build --no-cache --force-rm --pull -t jesusthehun/lisk-core -f docker/from-source.Dockerfile ."
 	},
 	"bin": {
 		"lisk-core": "./bin/run"

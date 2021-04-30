@@ -35,17 +35,15 @@ RUN apk --no-cache upgrade && \
 RUN addgroup -g 1100 lisk && \
     adduser -h /home/lisk -s /bin/bash -u 1100 -G lisk -D lisk
 
-RUN cat << EOF > /etc/logrotate.d/lisk
-/home/lisk/.lisk/lisk-core/logs/lisk.log {
-	daily
-	rotate 10
-	maxage 180
-	compress
-	delaycompress
-	missingok
-	notifempty
-}
-EOF
+RUN printf '/home/lisk/.lisk/lisk-core/logs/lisk.log { \n\
+	daily \n\
+	rotate 10 \n\
+	maxage 180 \n\
+	compress \n\
+	delaycompress \n\
+	missingok \n\
+	notifempty \n\
+}' >> /etc/logrotate.d/lisk
 
 COPY --from=builder --chown=lisk:lisk /home/lisk/lisk-core/ /home/lisk/lisk-core/
 

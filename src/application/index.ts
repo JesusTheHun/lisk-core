@@ -22,6 +22,7 @@ import {
 import { LegacyAccountModule } from './modules';
 
 import { HealthPlugin } from 'lisk-plugin-health';
+import { BackupPlugin } from 'lisk-plugin-backup';
 
 export interface Options {
 	enableHTTPAPIPlugin: boolean;
@@ -54,6 +55,7 @@ export const getApplication = (
 	}
 
 	app.registerPlugin(HealthPlugin);
+	app.registerPlugin(BackupPlugin);
 
 	return app;
 };
